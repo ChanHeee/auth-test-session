@@ -1,6 +1,7 @@
 const passport = require("passport")
 const { User } = require("../models")
 const local = require("./localStrategy")
+
 module.exports = () => {
   passport.serializeUser((user, done) => {
     console.log("SerializeUser!")
@@ -19,7 +20,6 @@ module.exports = () => {
       done(error)
     }
   })
-
-  //? passport localStrategy
+  console.log("Dad")
   local()
 }

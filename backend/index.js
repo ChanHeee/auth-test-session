@@ -7,13 +7,16 @@ const dotenv = require("dotenv")
 const passport = require("passport")
 const { notFound, errorHandler } = require("./middleware/errorMiddleware")
 const { sequelize } = require("./models/index")
+const passportConfig = require("./passport")
 
 //* @import Routers
 const indexRouter = require("./routes/indexRoutes")
+const authRouter = require("./routes/authRoutes")
 
 dotenv.config()
 
 const app = express()
+passportConfig()
 sequelize
   .sync({ force: false })
   .then(() => console.log("데이터베이스 연결 성공"))
@@ -41,6 +44,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use("/", indexRouter)
+app.use("/auth", authRouter)
 
 app.use(notFound)
 app.use(errorHandler)
