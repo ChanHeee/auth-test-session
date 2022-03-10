@@ -29,9 +29,10 @@ const login = (req, res, next) => {
 //*  @access  Public
 const loginCkeck = (req, res, next) => {
   if ("passport" in req.session) {
-    res.json({ login: true })
+    res.json({ user: req.user })
   } else {
-    res.json({ login: false })
+    const err = new Error("not logged in")
+    next(err)
   }
 }
 
