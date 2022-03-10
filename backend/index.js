@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser")
 const morgan = require("morgan")
 const dotenv = require("dotenv")
 const passport = require("passport")
+const cors = require("cors")
 const { notFound, errorHandler } = require("./middleware/errorMiddleware")
 const { sequelize } = require("./models/index")
 const passportConfig = require("./passport")
@@ -25,6 +26,12 @@ sequelize
   })
 
 app.use(morgan("dev"))
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+)
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser(process.env.COOKIE_SECRET))
