@@ -55,11 +55,11 @@
         password,
       });
 
-      if (data.success) {
+      if ('error' in data == false) {
         push('/');
       } else {
         passcheckInfo = true;
-        passcheckmessage = data;
+        passcheckmessage = data.error.message;
       }
     }
   };

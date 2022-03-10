@@ -1,4 +1,6 @@
 const passport = require("passport")
+const { User } = require("../models")
+const bcrypt = require("bcrypt")
 
 //*  @desc    Login
 //*  @route   Post /auth
@@ -45,4 +47,32 @@ const logout = (req, res) => {
   res.json({ logout: true })
 }
 
-module.exports = { login, loginCkeck, logout }
+//*  @desc    Logout
+//*  @route   Post /auth/logout
+//*  @access  Public
+const join = async (req, res, next) => {
+  const { email, nick, password, passwordCheck } = req.body
+  try {
+    const exEmail = await User.findOne({ where: { email } })
+    if (exEmail) {
+      const error = new Error("This email is already registered.")
+      return next(error)
+    }
+    const exNick = await User.findOne({ where: { nick } })
+    if (exNick) {
+      const error = new Error("this nickname is already taken")
+      return next(error)
+    }
+    const newUser = await User.create({
+      email,
+      nick,
+      password: bcrypt.hashSync(password, 10),
+    })
+    res.json({ user: newUser })
+  } catch (error) {
+    console.error(error)
+    next(error)
+  }
+}
+
+module.exports = { login, loginCkeck, logout, join }

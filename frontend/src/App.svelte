@@ -8,6 +8,7 @@
     '/': Main,
     '/login': Login,
     '/signup': Signup,
+    '*': Main,
   };
 </script>
 
