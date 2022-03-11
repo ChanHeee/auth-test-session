@@ -2,11 +2,11 @@
   import axios from 'axios';
   import { onMount } from 'svelte';
   import { nick, login } from '../store';
-  axios.defaults.baseURL = 'http://localhost:5000';
-  axios.defaults.withCredentials = true;
+  // axios.defaults.baseURL = 'http://localhost:3000/api';
+  // axios.defaults.withCredentials = true;
 
   onMount(async () => {
-    const { data } = await axios.get('/auth/logincheck');
+    const { data } = await axios.get('/api/auth/logincheck');
     if ('error' in data == false) {
       $nick = data.user.nick;
       $login = true;
@@ -16,7 +16,7 @@
   });
 
   const logoutHandler = async () => {
-    const { data } = await axios.get('/auth/logout');
+    const { data } = await axios.get('/api/auth/logout');
     $login = false;
   };
 </script>

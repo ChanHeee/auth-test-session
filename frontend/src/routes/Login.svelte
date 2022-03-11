@@ -4,8 +4,8 @@
   import axios from 'axios';
   import { onMount } from 'svelte';
   import { login } from '../store';
-  axios.defaults.baseURL = 'http://localhost:5000';
-  axios.defaults.withCredentials = true;
+  // axios.defaults.baseURL = 'http://localhost:3000/api';
+  // axios.defaults.withCredentials = true;
 
   onMount(() => {
     if ($login) {
@@ -36,12 +36,12 @@
       passwordMessage = 'Please enter password.';
     } else {
       console.log('here', email, password);
-      const { data } = await axios.post('/auth/login', { email, password });
+      const { data } = await axios.post('/api/auth/login', { email, password });
       if ('error' in data == false) {
         push('/');
       } else {
         passwordInfo = true;
-        passwordMessage = data;
+        passwordMessage = data.error.message;
       }
     }
   };

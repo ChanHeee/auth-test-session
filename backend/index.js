@@ -26,12 +26,12 @@ sequelize
   })
 
 app.use(morgan("dev"))
-app.use(
-  cors({
-    origin: true,
-    credentials: true,
-  })
-)
+// app.use(
+//   cors({
+//     origin: true,
+//     credentials: true,
+//   })
+// )
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser(process.env.COOKIE_SECRET))
@@ -50,8 +50,8 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use("/", indexRouter)
-app.use("/auth", authRouter)
+app.use("/api/", indexRouter)
+app.use("/api/auth", authRouter)
 
 app.use(notFound)
 app.use(errorHandler)

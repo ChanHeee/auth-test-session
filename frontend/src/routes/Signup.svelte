@@ -4,8 +4,8 @@
   import axios from 'axios';
   import { onMount } from 'svelte';
   import { login } from '../store';
-  axios.defaults.baseURL = 'http://localhost:5000';
-  axios.defaults.withCredentials = true;
+  // axios.defaults.baseURL = 'http://localhost:3000/api';
+  // axios.defaults.withCredentials = true;
 
   onMount(() => {
     if ($login) {
@@ -49,7 +49,7 @@
       passcheckmessage = 'Passwords do not match.';
     } else {
       console.log('here', email, nick, password, passwordCheck);
-      const { data } = await axios.post('/auth/join', {
+      const { data } = await axios.post('/api/auth/join', {
         email,
         nick,
         password,
